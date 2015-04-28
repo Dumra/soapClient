@@ -18,7 +18,8 @@ class CurlSoapClient {
 		$ch = curl_init("http://www.webservicex.net//globalweather.asmx/GetCitiesByCountry?CountryName=$country");
 		$this->ch = $ch;
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		return curl_exec($ch);
+		$str = simplexml_load_string(curl_exec($ch));
+		return (string)$str;
 	}
 
 

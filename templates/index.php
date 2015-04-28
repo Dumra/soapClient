@@ -64,7 +64,7 @@
 						</div>
 					</form>
 				</fieldset>
-				<div class="col-md-5 col-md-offset-5"><i>Result:<br/> <?php echo $cities; ?></i></div>
+				<div class="col-md-5 col-md-offset-5"><i>Result:<br/> <?php print_r($cities); ?></i></div>
 			</div>
 		</div>
 	</body>
