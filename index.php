@@ -2,14 +2,12 @@
 	require_once("lib/autoloader.php");
 
 	$rate = '';
-	$cities = array();
+	$cities = '';
 
 	if ( isset($_POST["FromCurrency"]) && isset($_POST["ToCurrency"]) )
 	{
-		$from = $_POST["FromCurrency"];
-		$to = $_POST["ToCurrency"];
-		$fromCurrency = strtoupper($from);
-		$toCurrency = strtoupper($to);
+		$fromCurrency = strtoupper($_POST["FromCurrency"]);
+		$toCurrency = strtoupper($_POST["ToCurrency"]);
 		try
 		{
 			if ( $_POST["Currency"] === "1")

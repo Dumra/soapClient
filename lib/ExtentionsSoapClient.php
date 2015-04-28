@@ -14,7 +14,8 @@ class ExtentionsSoapClient {
 	{
 		$client = new SoapClient("http://www.webservicex.net/globalweather.asmx?WSDL");
 		$obj = $client->GetCitiesByCountry($country);
-		return $obj->GetCitiesByCountryResult;
+		$xml = $obj->GetCitiesByCountryResult;
+		return $xml;
 	}
 
 } 

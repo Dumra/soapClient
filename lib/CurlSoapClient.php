@@ -9,6 +9,7 @@ class CurlSoapClient {
 	{
 		$ch = curl_init("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=$from&ToCurrency=$to");
 		$this->ch = $ch;
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		return curl_exec($ch);
 	}
 
@@ -16,6 +17,7 @@ class CurlSoapClient {
 	{
 		$ch = curl_init("http://www.webservicex.net//globalweather.asmx/GetCitiesByCountry?CountryName=$country");
 		$this->ch = $ch;
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		return curl_exec($ch);
 	}
 
