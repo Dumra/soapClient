@@ -1,88 +1,59 @@
 <?php
 	require_once("lib/autoloader.php");
 
-	$rateExtensionPhp = '';
-	$citiesExtension = array();;
-	$rateCurl = '';
-	$citiesCurl = '';
+	$rate = '';
+	$cities = array();
 
-	if ( isset($_POST["FromCurrencyExtension"]) && isset($_POST["ToCurrencyExtension"]) )
+	if ( isset($_POST["FromCurrency"]) && isset($_POST["ToCurrency"]) )
 	{
-		$from = $_POST["FromCurrencyExtension"];
-		$to = $_POST["ToCurrencyExtension"];
-		if ( is_string($from) && is_string($to) )
+		$from = $_POST["FromCurrency"];
+		$to = $_POST["ToCurrency"];
+		$fromCurrency = strtoupper($from);
+		$toCurrency = strtoupper($to);
+		try
 		{
-			$fromCurrency = strtoupper($from);
-			$toCurrency = strtoupper($to);
-			$array = array("FromCurrency" => $fromCurrency, "ToCurrency" => $toCurrency);
-			$obj = new ExtentionsSoapClient();
-			try
+			if ( $_POST["Currency"] === "1")
 			{
-				$rateExtensionPhp = $obj->getCurrencyConversionResult($array);
+				$array = array("FromCurrency" => $fromCurrency, "ToCurrency" => $toCurrency);
+				$obj = new ExtentionsSoapClient();
+				$rate = $obj->getCurrencyConversionResult($array);
 			}
-			catch (Exception $e)
+			else
 			{
-				$rateExtensionPhp = 'Wrong inputs. Try an other';
+				$obj = new CurlSoapClient();
+				$rate = $obj->getCurrencyConversionResult($fromCurrency, $toCurrency);
 			}
 		}
-
-	}
-
-	if ( isset($_POST["CountryNameExtension"])  )
-	{
-		$country = trim(strtolower($_POST["CountryNameExtension"]));
-		if ( is_string($country) )
+		catch (Exception $e)
 		{
-			$array = array("CountryName" => $country);
-			$obj = new ExtentionsSoapClient();
-			try
-			{
-				$citiesExtension = $obj->getCities($array);
-			}
-			catch (Exception $e)
-			{
-				$citiesExtension = 'Wrong inputs. Try an other';
-			}
+				$rate = 'Wrong inputs. Try an other';
 		}
 	}
 
-	if ( isset($_POST["FromCurrencyCurl"]) && isset($_POST["ToCurrencyCurl"]) )
+	if ( isset($_POST["CountryName"])  )
 	{
-		$from = $_POST["FromCurrencyCurl"];
-		$to = $_POST["ToCurrencyCurl"];
-		if ( is_string($from) && is_string($to) )
+		$country = trim(strtolower($_POST["CountryName"]));
+		try
 		{
-			$fromCurrency = strtoupper($from);
-			$toCurrency = strtoupper($to);
-			$obj = new CurlSoapClient();
-			try
+			if ( $_POST["Country"] === "1")
 			{
-				$rateCurl = $obj->getCurrencyConversionResult($fromCurrency, $toCurrency);
+				$array = array("CountryName" => $country);
+				$obj = new ExtentionsSoapClient();
+				$cities = $obj->getCities($array);
 			}
-			catch (Exception $e)
+			else
 			{
-				$rateCurl = 'Wrong inputs. Try an other';
+				$obj = new CurlSoapClient();
+				$cities = $obj->getCities($country);
+
 			}
 		}
-
-	}
-
-	if ( isset($_POST["CountryNameCurl"])  )
-	{
-		$country = trim(strtolower($_POST["CountryNameCurl"]));
-		if ( is_string($country) )
+		catch(Exception $e)
 		{
-			$obj = new CurlSoapClient();
-			try
-			{
-				$citiesCurl = $obj->getCities($country);
-			}
-			catch (Exception $e)
-			{
-				$citiesCurl = 'Wrong inputs. Try an other';
-			}
+			$cities = 'Wrong inputs. Try an other';
 		}
 	}
+
 	require_once("templates/index.php");
 
 ?>
