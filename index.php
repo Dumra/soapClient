@@ -19,7 +19,7 @@
 			else
 			{
 				$obj = new CurlSoapClient();
-				$rate = $obj->getCurrencyConversionResult($fromCurrency, $toCurrency);
+				$rate = $obj->getCurrencyConversionResult($fromCurrency, $toCurrency, CURRENCY);
 			}
 		}
 		catch (Exception $e)
@@ -42,7 +42,7 @@
 			else
 			{
 				$obj = new CurlSoapClient();
-				$cities = $obj->getCities($country);
+				$cities = $obj->getCities($country, CITIES);
 			}
 		}
 		catch(Exception $e)
