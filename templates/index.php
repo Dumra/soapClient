@@ -2,8 +2,8 @@
 <html>
 
 	<head>
-		<base="http://localhost/">
-		<!--<base='http://192.168.0.15/~user3/'>-->
+		<!--<base="http://localhost/">-->
+		<base='http://192.168.0.15/~user3/'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="./css/style.css">
 		<title>Soap Client</title>

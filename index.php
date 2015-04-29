@@ -1,6 +1,6 @@
 <?php
 	require_once("lib/autoloader.php");
-
+    require_once("lib/config.php");
 	$rate = '';
 	$cities = '';
 
@@ -14,7 +14,7 @@
 			{
 				$array = array("FromCurrency" => $fromCurrency, "ToCurrency" => $toCurrency);
 				$obj = new ExtentionsSoapClient();
-				$rate = $obj->getCurrencyConversionResult($array);
+				$rate = $obj->getCurrencyConversionResult($array, CURRENCY);
 			}
 			else
 			{
@@ -37,13 +37,12 @@
 			{
 				$array = array("CountryName" => $country);
 				$obj = new ExtentionsSoapClient();
-				$cities = $obj->getCities($array);
+				$cities = $obj->getCities($array, CITIES);
 			}
 			else
 			{
 				$obj = new CurlSoapClient();
 				$cities = $obj->getCities($country);
-
 			}
 		}
 		catch(Exception $e)
